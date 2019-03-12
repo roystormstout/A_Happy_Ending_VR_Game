@@ -10,8 +10,22 @@ public class PlayerControl : MonoBehaviour
     private Collectable leftHandItem;
     private Collectable rightHandItem;
 
+    private Transform leftHandTransform;
+    private Transform rightHandTransform;
+    private Vector3 lastFrameLeftHandPosition;
+    private Vector3 lastFrameRightHandPosition;
+
+
+    private float midpointZ = 0.3f;
+
+    private float nextTimeToRefreshSpeed = 0.8f;
+    private float speedRefreshInterval = 0.8f;
+    private float playerSpeed = 0.0f;
+    private float deltaMovement = 0.0f;
+
     public static PlayerControl instance;
 
+    private CharacterController controller;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,17 +34,37 @@ public class PlayerControl : MonoBehaviour
         else
             Debug.LogError("Only 1 PlayerControl is allowed");
 
-        // find left hand and right hand transform
-
+        controller = GetComponent<CharacterController>();
 
         leftHandItemInReach = rightHandItemInReach = null;
         leftHandItem = rightHandItem = null;
+
+
+
+        GameObject[] hands = GameObject.FindGameObjectsWithTag("hands");
+        if (hands.Length != 2)
+            Debug.LogError("Missing hand transforms for collectables to work properly");
+
+        if (hands[0].name == "hand_left")
+        {
+            leftHandTransform = hands[0].transform;
+            rightHandTransform = hands[1].transform;
+        }
+        else
+        {
+            leftHandTransform = hands[1].transform;
+            rightHandTransform = hands[0].transform;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
+
+        HandleMovement();
+
+
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
         {
             if (leftHandItem != null)
             {
@@ -45,7 +79,7 @@ public class PlayerControl : MonoBehaviour
             }
         }
 
-        if (OVRInput.GetDown(OVRInput.Button.SecondaryHandTrigger))
+        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
         {
             if (rightHandItem != null)
             {
@@ -60,17 +94,64 @@ public class PlayerControl : MonoBehaviour
             }
         }
 
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) && leftHandItem != null) {
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstick) && leftHandItem != null) {
             Interactable leftHandInteract = leftHandItem.gameObject.GetComponent<Interactable>();
             if (leftHandInteract != null)
                 leftHandInteract.Interact();
         }
 
-        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) && rightHandItem  != null)
+        if (OVRInput.GetDown(OVRInput.Button.SecondaryThumbstick) && rightHandItem  != null)
         {
             Interactable rightHandInteract = rightHandItem.gameObject.GetComponent<Interactable>();
             if (rightHandInteract != null)
                 rightHandInteract.Interact();
         }
+    }
+
+
+    private void HandleMovement() {
+
+        if (OVRInput.GetDown(OVRInput.Button.SecondaryHandTrigger))
+        {
+            // initiate movement
+            playerSpeed = rightHandTransform.localPosition.z - lastFrameRightHandPosition.z;
+            nextTimeToRefreshSpeed = speedRefreshInterval;
+            deltaMovement = 0.0f;
+        }
+
+        else if (OVRInput.Get(OVRInput.Button.SecondaryHandTrigger))
+        {
+            if ((rightHandTransform.localPosition.z < lastFrameRightHandPosition.z && rightHandTransform.localPosition.z > midpointZ) ||
+                (rightHandTransform.localPosition.z > lastFrameRightHandPosition.z && rightHandTransform.localPosition.z < midpointZ))
+                Debug.Log("Step");
+
+            if (nextTimeToRefreshSpeed < 0.0f)
+            {
+                // refresh playerSpeed here
+                playerSpeed = deltaMovement / speedRefreshInterval;
+                nextTimeToRefreshSpeed = speedRefreshInterval;
+                deltaMovement = 0.0f;
+                Debug.Log(playerSpeed);
+            }
+            else
+            {
+                nextTimeToRefreshSpeed -= Time.deltaTime;
+                deltaMovement += Mathf.Abs(rightHandTransform.localPosition.z - lastFrameRightHandPosition.z);
+            }
+
+            float deltaZ = rightHandTransform.localPosition.z - lastFrameRightHandPosition.z;
+            controller.Move(transform.forward * Mathf.Abs(playerSpeed) * 0.04f);
+        }
+
+        else
+        {
+            // reset movement
+            playerSpeed = 0.0f;
+            nextTimeToRefreshSpeed = speedRefreshInterval;
+            deltaMovement = 0.0f;
+        }
+
+        lastFrameLeftHandPosition = leftHandTransform.localPosition;
+        lastFrameRightHandPosition = rightHandTransform.localPosition;
     }
 }
