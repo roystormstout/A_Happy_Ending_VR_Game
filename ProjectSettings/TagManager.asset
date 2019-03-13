@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Shootable
   - hands
+  - moveIndicator
   layers:
   - Default
   - TransparentFX

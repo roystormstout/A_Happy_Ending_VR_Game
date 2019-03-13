@@ -154,4 +154,10 @@ public class PlayerControl : MonoBehaviour
         lastFrameLeftHandPosition = leftHandTransform.localPosition;
         lastFrameRightHandPosition = rightHandTransform.localPosition;
     }
+
+
+    public bool isHolding()
+    {
+        return leftHandItem != null || rightHandItem != null;
+    }
 }
