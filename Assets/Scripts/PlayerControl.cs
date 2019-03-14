@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+    private AudioSource audioPlayer;
+    private CharacterController controller;
+
     public Collectable leftHandItemInReach;
     public Collectable rightHandItemInReach;
 
@@ -15,17 +18,23 @@ public class PlayerControl : MonoBehaviour
     private Vector3 lastFrameLeftHandPosition;
     private Vector3 lastFrameRightHandPosition;
 
-
     private float midpointZ = 0.3f;
 
-    private float nextTimeToRefreshSpeed = 0.8f;
-    private float speedRefreshInterval = 0.8f;
+    // player movement variables
+    private float nextTimeToRefreshSpeed = 0.0f;
+    private float speedRefreshInterval = 0.2f;
     private float playerSpeed = 0.0f;
+    private float playerWalkSpeed = 1.5f;
+    private float walkDetactThreshold = 0.025f;
     private float deltaMovement = 0.0f;
+
+    // variables used to determine foot steps
+    [SerializeField] AudioClip footStepClip;
+    private float walkGestureDirection = 0.0f;
+    private float lastRefreshedPosition = 0.0f;
 
     public static PlayerControl instance;
 
-    private CharacterController controller;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,12 +44,13 @@ public class PlayerControl : MonoBehaviour
             Debug.LogError("Only 1 PlayerControl is allowed");
 
         controller = GetComponent<CharacterController>();
+        audioPlayer = GetComponent<AudioSource>();
 
         leftHandItemInReach = rightHandItemInReach = null;
         leftHandItem = rightHandItem = null;
 
 
-
+        // find two hands in the world
         GameObject[] hands = GameObject.FindGameObjectsWithTag("hands");
         if (hands.Length != 2)
             Debug.LogError("Missing hand transforms for collectables to work properly");
@@ -114,24 +124,42 @@ public class PlayerControl : MonoBehaviour
         if (OVRInput.GetDown(OVRInput.Button.SecondaryHandTrigger))
         {
             // initiate movement
-            playerSpeed = rightHandTransform.localPosition.z - lastFrameRightHandPosition.z;
+            playerSpeed = playerWalkSpeed;
             nextTimeToRefreshSpeed = speedRefreshInterval;
             deltaMovement = 0.0f;
+            walkGestureDirection = 0.0f;
+            lastRefreshedPosition = rightHandTransform.localPosition.z;
         }
 
         else if (OVRInput.Get(OVRInput.Button.SecondaryHandTrigger))
         {
-            if ((rightHandTransform.localPosition.z < lastFrameRightHandPosition.z && rightHandTransform.localPosition.z > midpointZ) ||
-                (rightHandTransform.localPosition.z > lastFrameRightHandPosition.z && rightHandTransform.localPosition.z < midpointZ))
-                Debug.Log("Step");
-
             if (nextTimeToRefreshSpeed < 0.0f)
             {
-                // refresh playerSpeed here
-                playerSpeed = deltaMovement / speedRefreshInterval;
+                float currentRefreshedPosition = rightHandTransform.localPosition.z;
+
+                if (deltaMovement > walkDetactThreshold)
+                {
+                    playerSpeed = playerWalkSpeed;
+
+                    if ((currentRefreshedPosition - lastRefreshedPosition) * walkGestureDirection < 0.0f)
+                    {
+                        audioPlayer.clip = footStepClip;
+                        audioPlayer.Stop();
+                        audioPlayer.Play();
+                    }
+
+                    walkGestureDirection = currentRefreshedPosition - lastRefreshedPosition;
+                }
+                else
+                {
+                    playerSpeed = 0.0f;
+                    walkGestureDirection = 0.0f;
+                }
+
+                lastRefreshedPosition = currentRefreshedPosition;
+
                 nextTimeToRefreshSpeed = speedRefreshInterval;
                 deltaMovement = 0.0f;
-                Debug.Log(playerSpeed);
             }
             else
             {
@@ -140,7 +168,7 @@ public class PlayerControl : MonoBehaviour
             }
 
             float deltaZ = rightHandTransform.localPosition.z - lastFrameRightHandPosition.z;
-            controller.Move(transform.forward * Mathf.Abs(playerSpeed) * 0.04f);
+            controller.Move(transform.forward * Mathf.Abs(playerSpeed) * Time.deltaTime);
         }
 
         else

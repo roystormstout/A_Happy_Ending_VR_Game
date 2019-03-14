@@ -75,7 +75,8 @@ public class Collectable : MonoBehaviour
         if (interactionType == InteractionType.RightHand)
         {
             transform.parent = rightHandTransform;
-            transform.localPosition = Vector3.zero;
+            transform.localPosition = rightHandAnchor.localPosition;
+            transform.localRotation = rightHandAnchor.localRotation;
         }
     }
 
