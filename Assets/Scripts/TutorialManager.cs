@@ -17,89 +17,72 @@ public class TutorialManager : MonoBehaviour
     private bool triggered;
     private Vector3 prev_trans;
     // Start is called before the first frame update
+
+    private Condition tutorialRootCondition;
+    private List<string> tutorialHelperText;
+
+    private int testIndex = 1;
+
     void Start()
     {
-        
+        SetPlayerMovementEnabled(false);
+
+        List<Condition> steps = new List<Condition>();
+        steps.Add(new Condition("t_welcome"));
+        steps.Add(new Condition("t_movement_instruction"));
+        steps.Add(new Condition("t_player_movement"));
+        steps.Add(new Condition("t_item_pickup"));
+        steps.Add(new Condition("t_item_interaction"));
+        steps.Add(new Condition("t_door_interaction"));
+        steps.Add(new Condition("t_trap_state"));
+        steps.Add(new Condition("t_fallen_state"));
+
+        tutorialRootCondition = new Condition("t_root", steps);
+        tutorialRootCondition = ConditionManager.instance.AddCondition(tutorialRootCondition);
+
+        // set up tutorial helper text
+        tutorialHelperText = new List<string>();
+        tutorialHelperText.Add("Welcome to the happiness resort!Let's get started with some basic operations.");
+        tutorialHelperText.Add("Move by press down the right hand hand trigger and simulating running with your arms.Look at where you want to go and wave your arms.");
+        tutorialHelperText.Add("Go to the highlighted location.");
+        tutorialHelperText.Add("Use Index trigger to pick up an item.");
+        tutorialHelperText.Add("Use joystick trigger to pick up an item.");
+        tutorialHelperText.Add("Press the joystick button to push a door open.");
+        tutorialHelperText.Add("Now, Go to the highlighted location.");
+        tutorialHelperText.Add("WELCOME BACK TO UR LIFE.");
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        timer += Time.deltaTime;
+        helperText.text = tutorialHelperText[tutorialRootCondition.GetCurrentProgressIndex()];
 
-        // Check if we have reached beyond 2 seconds.
-        // Subtracting two is more accurate over time than resetting to zero.
-        if (timer > waitTime && step < 1)
+        // welcome page trigger
+        if (tutorialRootCondition.GetCurrentProgressIndex() == 0 && Time.timeSinceLevelLoad > 4.0f)
         {
-            helperText.text = "Move by simulating running with your arms. Now, look at where you want to go and wave your arms as if you are actually running.";
-            step = 1;
-            timer = 0;
-        } else if (timer > waitTime && distance > target_distance && step == 1)
-        {
-            step = 2;
-            timer = 0;
-        } else if (step == 3 && OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
-        {
-            step = 4;
-        }else if(step == 4&& PlayerControl.instance.isHolding())
-        {
-            step = 5;
-            timer = 0;
-        } else if (step == 5 && OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
-        {
-            step = 6;
-            timer = 0;
+            ConditionManager.instance.UpdateConditions("t_welcome");
         }
-        if(timer <= waitTime && step == 1)
+        
+        // move instruction trigger
+        if (tutorialRootCondition.GetCurrentProgressIndex() == 1 && Time.timeSinceLevelLoad > 8.0f)
         {
-            prev_trans = transform.position;
+            ConditionManager.instance.UpdateConditions("t_movement_instruction");
+            SetPlayerMovementEnabled(true);
+            moveIndicator.SetActive(true);
         }
-        else if(timer > waitTime && step == 1)
-        {
-            
-            
-            distance = Vector3.Distance(prev_trans, transform.position);
-            Debug.Log(distance);
-        }
-
-        if (step == 2 && !triggered)
-        {
-            helperText.text = "Go to the highlighted location.";
-            if (moveIndicator && !moveIndicator.activeSelf)
-            {
-                moveIndicator.SetActive(true);
-            }
-        } else if (step == 3)
-        {
-            helperText.text = "You can press the secondary index finger trigger to push the door open.";
-
-        } else if (step == 4)
-        {
-            helperText.text = "The item which you can collect will be highlighted when you put your hand on it. Press hand finger trigger to collect it.";
-        }
-        else if (step == 5)
-        {
-            helperText.text = "Press index finger trigger to use the item.";
-        } else if (step == 6)
-        {
-            // play scary music and trasition plot
-            // switching scene to chapter 1.
-            helperText.text = "WELCOME TO THE NIGHTMARE";
-
-
-        }
-        //Debug.Log("currentstep " + step);
     }
 
+    private void SetPlayerMovementEnabled(bool isEnabled) {
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>().enabled = isEnabled;
+    }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "moveIndicator")
         {
-            step = 3;
+            ConditionManager.instance.UpdateConditions("t_player_movement");
             other.gameObject.SetActive(false);
-            triggered = true;
         }
-           
     }
 }

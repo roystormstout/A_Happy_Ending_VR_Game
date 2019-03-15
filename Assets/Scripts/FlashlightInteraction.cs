@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlashlightInteraction : Interactable
+public class FlashlightInteraction : MonoBehaviour, Interactable
 {
     private AudioSource audioPlayer;
     
@@ -51,7 +51,7 @@ public class FlashlightInteraction : Interactable
         }
     }
 
-    public override void Interact() {
+    public void Interact() {
         isTurnedOn = !isTurnedOn;
         spotLight.enabled = !spotLight.enabled;
         audioPlayer.Stop();

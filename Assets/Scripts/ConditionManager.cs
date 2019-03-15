@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class ConditionManager : MonoBehaviour
 {
+    public static ConditionManager instance;
+
     private Dictionary<string, Condition> mUniqueValueMap;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (instance == null)
+            instance = this;
+        else
+            Debug.LogError("Multiple Condition Manager exists, only 1 should be allowed!");
+
         mUniqueValueMap = new Dictionary<string, Condition>();
     }
 
@@ -20,7 +27,8 @@ public class ConditionManager : MonoBehaviour
     // call this when event with uniqueTriggerName is completed to update all statify conditions
     public void UpdateConditions(string uniqueTriggerName)
     {
-        mUniqueValueMap[uniqueTriggerName].UpdateConditions(uniqueTriggerName);
+        if (mUniqueValueMap.ContainsKey(uniqueTriggerName))
+            mUniqueValueMap[uniqueTriggerName].UpdateConditions(uniqueTriggerName);
     }
 
     public Condition GetConditionWithName(string uniqueTriggerName)
@@ -71,21 +79,25 @@ public class Condition
     // default constructor creates a leaf node with empty
     public Condition(string uniqueTriggerName) : this(uniqueTriggerName, null) { }
 
+
     public Condition(string uniqueTriggerName, List<Condition> subConditions) {
         mSubConditions = subConditions;
+        mUniqueTriggerName = uniqueTriggerName;
 
-        foreach (Condition subCondition in subConditions)
-            subCondition.AddParentCondition(this);
+        if (subConditions == null || subConditions.Count == 0)
+        {
+            mIsLeafNode = true;
+        }
+        else
+        {
+            mIsLeafNode = false;
+            foreach (Condition subCondition in subConditions)
+                subCondition.AddParentCondition(this);
+        }
 
         mParentConditions = new Dictionary<string, Condition>();
-
         mIsCompleted = false;
         mProgressIndex = 0;
-
-        if (subConditions != null && subConditions.Count > 0)
-            mIsLeafNode = false;
-        else
-            mIsLeafNode = true;
     }
 
     public void AddParentCondition(Condition parentCondition) {
@@ -171,5 +183,9 @@ public class Condition
             return;
 
         mSubConditions[position] = newSubCondition;
+    }
+
+    public int GetCurrentProgressIndex() {
+        return mProgressIndex;
     }
 }

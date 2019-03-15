@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class Collectable : MonoBehaviour
 {
     [SerializeField] Transform leftHandAnchor;
@@ -11,6 +9,8 @@ public class Collectable : MonoBehaviour
 
     private Transform leftHandTransform;
     private Transform rightHandTransform;
+
+    private Transform silhouette;
 
     public enum InteractionType
     {
@@ -38,30 +38,46 @@ public class Collectable : MonoBehaviour
             leftHandTransform = hands[1].transform;
             rightHandTransform = hands[0].transform;
         }
+
+        // find silhouette for highlight use
+        silhouette = transform.Find("Silhouette");
+
+        if (silhouette == null)
+            Debug.LogError("Collectable " + this.gameObject.name + " does not have a silhouette!");
     }
 
     private void OnTriggerEnter(Collider other)
     {
+
         if (other.gameObject.name == "hand_left")
         {
+            SetHighLight(true);
             PlayerControl.instance.leftHandItemInReach = this;
         }
         if (other.gameObject.name == "hand_right")
         {
+            SetHighLight(true);
             PlayerControl.instance.rightHandItemInReach = this;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
+
         if (other.gameObject.name == "hand_left" && PlayerControl.instance.leftHandItemInReach == this)
+        {
             PlayerControl.instance.leftHandItemInReach = null;
+            SetHighLight(false);
+        }
         if (other.gameObject.name == "hand_right" && PlayerControl.instance.rightHandItemInReach == this)
+        {
             PlayerControl.instance.rightHandItemInReach = null;
+            SetHighLight(false);
+        }
     }
 
 
-    public void Collect(InteractionType interactionType)
+    public virtual void Collect(InteractionType interactionType)
     {
         if (interactionType == InteractionType.None) return;
 
@@ -78,13 +94,22 @@ public class Collectable : MonoBehaviour
             transform.localPosition = rightHandAnchor.localPosition;
             transform.localRotation = rightHandAnchor.localRotation;
         }
+
+        // set highlight to false
+        SetHighLight(false);
     }
 
-    public void Release(InteractionType interactionType)
+    public virtual void Release(InteractionType interactionType)
     {
-        Debug.Log("Released");
-        Debug.Log(gameObject.name);
         GetComponent<Rigidbody>().isKinematic = false;
         transform.parent = null;
+    }
+
+
+    public void SetHighLight(bool isHighlight) {
+        if (silhouette == null)
+            return;
+
+        silhouette.gameObject.SetActive(isHighlight);
     }
 }
