@@ -71,7 +71,6 @@ GameObject:
   - component: {fileID: 2694582459292412078}
   - component: {fileID: 666894080}
   - component: {fileID: 666894077}
-  - component: {fileID: 666894078}
   - component: {fileID: 847433808573344611}
   - component: {fileID: 8898836477482002066}
   m_Layer: 0
@@ -129,20 +128,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &666894078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2694582459292412079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc206b55bc6139145847c51bbde18ed9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftHandAnchor: {fileID: 415500494}
-  rightHandAnchor: {fileID: 736585642}
 --- !u!82 &847433808573344611
 AudioSource:
   m_ObjectHideFlags: 0
@@ -251,6 +236,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e710d1546040304c804ece60b895107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftHandAnchor: {fileID: 415500494}
+  rightHandAnchor: {fileID: 736585642}
   spotLight: {fileID: 6666067198074791609}
   flashlightSwitchClip: {fileID: 8300000, guid: 34a5d32f719f755408f730dd7924ad99,
     type: 3}

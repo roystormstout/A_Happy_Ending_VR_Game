@@ -7,11 +7,11 @@ public class PlayerControl : MonoBehaviour
     private AudioSource audioPlayer;
     private CharacterController controller;
 
-    public Collectable leftHandItemInReach;
-    public Collectable rightHandItemInReach;
+    public Interactable leftHandItemInReach;
+    public Interactable rightHandItemInReach;
 
-    private Collectable leftHandItem;
-    private Collectable rightHandItem;
+    public Collectable leftHandItem;
+    public Collectable rightHandItem;
 
     private Transform leftHandTransform;
     private Transform rightHandTransform;
@@ -71,53 +71,58 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
 
-        HandleMovement();
-
+        //HandleMovement();
+        TempMovement();
 
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
         {
-            if (leftHandItem != null)
+            if (leftHandItemInReach != null)
             {
-                leftHandItem.Release(Collectable.InteractionType.LeftHand);
-                leftHandItem = null;
-            }
-
-            else if (leftHandItemInReach != null)
-            {
-                leftHandItemInReach.Collect(Collectable.InteractionType.LeftHand);
-                leftHandItem = leftHandItemInReach;
+                if (leftHandItemInReach is Collectable && leftHandItem != null)
+                    Destroy(leftHandItem.gameObject);
+                leftHandItemInReach.Interact(Interactable.InteractionType.LeftHand);
             }
         }
 
         if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
         {
-            if (rightHandItem != null)
+            if (rightHandItemInReach != null)
             {
-                rightHandItem.Release(Collectable.InteractionType.RightHand);
-                rightHandItem = null;
-            }
-
-            else if (rightHandItemInReach != null)
-            {
-                rightHandItemInReach.Collect(Collectable.InteractionType.RightHand);
-                rightHandItem = rightHandItemInReach;
+                if (rightHandItemInReach is Collectable && rightHandItem != null)
+                    Destroy(rightHandItem.gameObject);
+                rightHandItemInReach.Interact(Interactable.InteractionType.RightHand);
             }
         }
 
         if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstick) && leftHandItem != null) {
-            Interactable leftHandInteract = leftHandItem.gameObject.GetComponent<Interactable>();
-            if (leftHandInteract != null)
-                leftHandInteract.Interact();
+            if (leftHandItem != null)
+                leftHandItem.Use(leftHandItemInReach? leftHandItemInReach.gameObject : null);
         }
 
         if (OVRInput.GetDown(OVRInput.Button.SecondaryThumbstick) && rightHandItem  != null)
         {
-            Interactable rightHandInteract = rightHandItem.gameObject.GetComponent<Interactable>();
-            if (rightHandInteract != null)
-                rightHandInteract.Interact();
+            if (rightHandItem != null)
+                rightHandItem.Use(rightHandItemInReach? rightHandItemInReach.gameObject : null);
         }
     }
 
+
+    private void TempMovement() {
+        if (OVRInput.Get(OVRInput.Button.SecondaryHandTrigger))
+        {
+            if (!audioPlayer.isPlaying)
+                audioPlayer.Play();
+
+            // initiate movement
+            playerSpeed = playerWalkSpeed;
+            controller.Move(transform.forward * Mathf.Abs(playerSpeed) * Time.deltaTime);
+            audioPlayer.UnPause();
+        }
+        else
+        {
+            audioPlayer.Pause();
+        }
+    }
 
     private void HandleMovement() {
 

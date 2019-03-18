@@ -2,15 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WalkieScript : Collectable, Interactable
+public class WalkieScript : Collectable
 {
-    public override void Collect(InteractionType interactionType)
-    {
-        base.Collect(interactionType);
-        ConditionManager.instance.UpdateConditions("t_item_pickup");
-    }
-
-    public void Interact() {
+    public override void Use(GameObject target = null) {
         ConditionManager.instance.UpdateConditions("t_item_interaction");
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlashlightInteraction : MonoBehaviour, Interactable
+public class FlashlightInteraction : Collectable
 {
     private AudioSource audioPlayer;
     
@@ -16,10 +16,12 @@ public class FlashlightInteraction : MonoBehaviour, Interactable
     [SerializeField] AudioClip batteryPlaceClip;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         audioPlayer = GetComponent<AudioSource>();
-        lifeTime = 5f;
+        lifeTime = 100f;
         isTurnedOn = true;
         isDying = false;
     }
@@ -28,7 +30,7 @@ public class FlashlightInteraction : MonoBehaviour, Interactable
     {
         if (isDying) return;
 
-        if (lifeTime < 0.0f) {
+        if (lifeTime <= 0.0f) {
             StartCoroutine("DieOut");
         }
 
@@ -38,7 +40,9 @@ public class FlashlightInteraction : MonoBehaviour, Interactable
         }
     }
 
-    private void OnTriggerEnter(Collider collider) {
+    protected override void OnTriggerEnter(Collider collider) {
+        base.OnTriggerEnter(collider);
+
         if (collider.gameObject.name == "battery") {
             lifeTime = 100.0f;
             spotLight.intensity = 1.0f;
@@ -51,7 +55,7 @@ public class FlashlightInteraction : MonoBehaviour, Interactable
         }
     }
 
-    public void Interact() {
+    public override void Use(GameObject target = null) {
         isTurnedOn = !isTurnedOn;
         spotLight.enabled = !spotLight.enabled;
         audioPlayer.Stop();
@@ -59,18 +63,34 @@ public class FlashlightInteraction : MonoBehaviour, Interactable
         audioPlayer.Play();
     }
 
+    protected override void OnFirstTimeCollect() {
+        StartCoroutine("DieOut", 2f);
+    }
+
     IEnumerator DieOut() {
 
         isDying = true;
 
-        float timeRemaining = 5.0f;
+        float timeRemaining = 2.0f;
         while (timeRemaining > 0.0f)
         {
-            spotLight.intensity = spotLight.intensity * 0.9f;
-            timeRemaining -= 1f;
-            yield return new WaitForSeconds(1f);
+            spotLight.intensity -= 0.04f;
+            timeRemaining -= 0.1f;
+            yield return new WaitForSeconds(0.1f);
         }
 
-        
+        // flicker for 1 second
+        timeRemaining = 0.4f;
+        while (timeRemaining > 0.0f)
+        {
+            spotLight.enabled = !spotLight.enabled;
+            timeRemaining -= 0.1f;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        isTurnedOn = false;
+        spotLight.enabled = false;
+        spotLight.intensity = 0.0f;
+        lifeTime = 0.0f;
     }
 }

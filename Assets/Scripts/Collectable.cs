@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collectable : MonoBehaviour
+public class Collectable : Interactable
 {
     [SerializeField] Transform leftHandAnchor;
     [SerializeField] Transform rightHandAnchor;
@@ -10,19 +10,12 @@ public class Collectable : MonoBehaviour
     private Transform leftHandTransform;
     private Transform rightHandTransform;
 
-    private Transform silhouette;
-
-    public enum InteractionType
-    {
-        LeftHand,
-        RightHand,
-        Both,
-        None
-    }
+    private bool isCollected = false;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
 
         GameObject[] hands = GameObject.FindGameObjectsWithTag("hands");
         if (hands.Length != 2)
@@ -38,47 +31,27 @@ public class Collectable : MonoBehaviour
             leftHandTransform = hands[1].transform;
             rightHandTransform = hands[0].transform;
         }
-
-        // find silhouette for highlight use
-        silhouette = transform.Find("Silhouette");
-
-        if (silhouette == null)
-            Debug.LogError("Collectable " + this.gameObject.name + " does not have a silhouette!");
     }
 
-    private void OnTriggerEnter(Collider other)
+    public virtual void Use(GameObject target = null) {}
+
+    public override void Interact(InteractionType interactionType)
     {
+        base.Interact(interactionType);
 
-        if (other.gameObject.name == "hand_left")
+        // collect the object
+
+        if (!isCollected)
         {
-            SetHighLight(true);
-            PlayerControl.instance.leftHandItemInReach = this;
+            OnFirstTimeCollect();
+            isCollected = true;
+            SetIsInteractable(false);
         }
-        if (other.gameObject.name == "hand_right")
+        else
         {
-            SetHighLight(true);
-            PlayerControl.instance.rightHandItemInReach = this;
+            return;
         }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-
-        if (other.gameObject.name == "hand_left" && PlayerControl.instance.leftHandItemInReach == this)
-        {
-            PlayerControl.instance.leftHandItemInReach = null;
-            SetHighLight(false);
-        }
-        if (other.gameObject.name == "hand_right" && PlayerControl.instance.rightHandItemInReach == this)
-        {
-            PlayerControl.instance.rightHandItemInReach = null;
-            SetHighLight(false);
-        }
-    }
-
-
-    public virtual void Collect(InteractionType interactionType)
-    {
         if (interactionType == InteractionType.None) return;
 
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
@@ -87,16 +60,21 @@ public class Collectable : MonoBehaviour
             transform.parent = leftHandTransform;
             transform.localPosition = leftHandAnchor.localPosition;
             transform.localRotation = leftHandAnchor.localRotation;
+            PlayerControl.instance.leftHandItem = this;
+            PlayerControl.instance.leftHandItemInReach = null;
+            if (PlayerControl.instance.rightHandItemInReach == this)
+                PlayerControl.instance.rightHandItemInReach = null;
         }
         if (interactionType == InteractionType.RightHand)
         {
             transform.parent = rightHandTransform;
             transform.localPosition = rightHandAnchor.localPosition;
             transform.localRotation = rightHandAnchor.localRotation;
+            PlayerControl.instance.rightHandItem = this;
+            PlayerControl.instance.rightHandItemInReach = null;
+            if (PlayerControl.instance.leftHandItemInReach == this)
+                PlayerControl.instance.leftHandItemInReach = null;
         }
-
-        // set highlight to false
-        SetHighLight(false);
     }
 
     public virtual void Release(InteractionType interactionType)
@@ -105,11 +83,5 @@ public class Collectable : MonoBehaviour
         transform.parent = null;
     }
 
-
-    public void SetHighLight(bool isHighlight) {
-        if (silhouette == null)
-            return;
-
-        silhouette.gameObject.SetActive(isHighlight);
-    }
+    protected virtual void OnFirstTimeCollect() { }
 }
