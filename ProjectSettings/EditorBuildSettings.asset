@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/House_on_the_lake_scene.unity
+    path: Assets/_Scenes/House_on_the_lake_scene.unity
     guid: da76972cb4336d2488e74c69602c7c0e
   - enabled: 1
-    path: Assets/Scenes/morgue.unity
+    path: Assets/_Scenes/morgue.unity
     guid: 845128cf95f90184697fffb609346de8
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 082642b9e881c094aa0249b75903a7cb
+    path: Assets/_Scenes/office.unity
+    guid: 3473e101f064ad54288f97d14eef6431
   m_configObjects: {}
