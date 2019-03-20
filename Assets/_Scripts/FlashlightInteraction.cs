@@ -14,14 +14,22 @@ public class FlashlightInteraction : Collectable
     [SerializeField] AudioClip batteryPlaceClip;
     [SerializeField] AudioClip lightFlickerClip;
 
+    private Transform forwardDirection;
+    private Condition raycastCondition;
+
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
 
+        raycastCondition = new Condition("hallwaylightoff");
+        raycastCondition = ConditionManager.instance.AddCondition(raycastCondition);
+
         lifeTime = 100f;
         isTurnedOn = true;
         isDying = false;
+
+        forwardDirection = transform.Find("ForwardDirection");
     }
 
     void Update()
@@ -35,6 +43,23 @@ public class FlashlightInteraction : Collectable
         if (isTurnedOn)
         {
             lifeTime -= Time.deltaTime;
+
+            // raycast
+            int layerMask = 1 << 8 + 1 << 11;
+            layerMask = ~layerMask;
+
+            if (raycastCondition.IsCompleted())
+            {
+                RaycastHit hit;
+                // Does the ray intersect any objects excluding the player layer
+                if (Physics.Raycast(forwardDirection.position, forwardDirection.position - transform.position, out hit, Mathf.Infinity, layerMask))
+                {
+                    if (hit.collider.gameObject.name == "Demon") {
+                        GameObject.FindGameObjectWithTag("Demon").GetComponent<Animator>().enabled = true;
+                        StartCoroutine("DieOut");
+                    }
+                }
+            }
         }
     }
 
@@ -42,6 +67,7 @@ public class FlashlightInteraction : Collectable
         base.OnTriggerEnter(collider);
 
         if (collider.gameObject.name == "battery") {
+            isDying = false;
             lifeTime = 100.0f;
             spotLight.intensity = 1.0f;
 

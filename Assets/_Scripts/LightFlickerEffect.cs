@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class LightFlickerEffect : MonoBehaviour
 {
+    // turnoff condition event
+    private Condition turnoffCondition;
+    // turnon condition event
+
     [Tooltip("External light to flicker; you can leave this null if you attach script to a light")]
     public new Light light;
     [Tooltip("Minimum random light intensity")]
@@ -39,10 +43,17 @@ public class LightFlickerEffect : MonoBehaviour
         {
             light = GetComponent<Light>();
         }
+
+        turnoffCondition = new Condition("hallwaylightoff");
+        turnoffCondition = ConditionManager.instance.AddCondition(turnoffCondition);
     }
 
     void Update()
     {
+        if (turnoffCondition.IsCompleted())
+            gameObject.SetActive(false);
+
+
         if (light == null)
             return;
 

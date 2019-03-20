@@ -41,7 +41,7 @@ public class ConditionManager : MonoBehaviour
         if (mUniqueValueMap.ContainsKey(newCondition.GetUnqiueValue()))
         {
             if (parentCondition == null)
-                return newCondition;
+                return mUniqueValueMap[newCondition.GetUnqiueValue()];
             else
                 parentCondition.SetSubConditionAt(mUniqueValueMap[newCondition.GetUnqiueValue()], position);
         }
