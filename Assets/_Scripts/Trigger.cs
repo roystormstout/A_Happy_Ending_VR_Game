@@ -29,7 +29,7 @@ public class Trigger : MonoBehaviour
             if (demon)
             {
                 demon.SetActive(true);
-                Destroy(demon, 9f);
+                Destroy(demon, 30f);
             }
         }
     }

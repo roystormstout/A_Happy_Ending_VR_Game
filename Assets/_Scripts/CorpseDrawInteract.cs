@@ -32,7 +32,7 @@ public class CorpseDrawInteract : Interactable
     {
         base.Interact(interactionType);
 
-        if (!morgueKeyCondition.IsCompleted())
+        if (!morgueKeyCondition.IsCompleted() || !isInteractable)
             return;
 
         audioPlayer.Play();

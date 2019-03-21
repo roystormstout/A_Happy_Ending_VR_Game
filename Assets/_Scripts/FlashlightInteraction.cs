@@ -99,7 +99,7 @@ public class FlashlightInteraction : Collectable
         isDying = true;
 
 
-        float timeRemaining = 1.4f;
+        float timeRemaining = 1f;
         while (timeRemaining > 0.0f)
         {
             spotLight.intensity -= 0.04f;

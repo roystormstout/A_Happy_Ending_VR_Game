@@ -13,7 +13,7 @@ public class Interactable : MonoBehaviour
     }
 
     private Transform silhouette;
-    private bool isInteractable = true;
+    protected bool isInteractable = true;
 
     // Start is called before the first frame update
     protected virtual void Start()

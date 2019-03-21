@@ -1688,6 +1688,7 @@ MonoBehaviour:
   minIntensity: 0
   maxIntensity: 0.2
   smoothing: 20
+  dyingout: 1
 --- !u!1001 &268160769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1706,6 +1707,10 @@ PrefabInstance:
     - target: {fileID: 117088, guid: 947e113398f058643a47464fff50cae1, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 145134, guid: 947e113398f058643a47464fff50cae1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 403928, guid: 947e113398f058643a47464fff50cae1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1847,10 +1852,6 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0.8726415
       objectReference: {fileID: 0}
-    - target: {fileID: 145134, guid: 947e113398f058643a47464fff50cae1, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 947e113398f058643a47464fff50cae1, type: 3}
 --- !u!4 &268160770 stripped
@@ -1881,6 +1882,7 @@ MonoBehaviour:
   minIntensity: 0
   maxIntensity: 0.8
   smoothing: 20
+  dyingout: 1
 --- !u!1001 &280023159
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2412,6 +2414,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 145134, guid: 947e113398f058643a47464fff50cae1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 403928, guid: 947e113398f058643a47464fff50cae1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2548,10 +2554,6 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0.8726415
       objectReference: {fileID: 0}
-    - target: {fileID: 145134, guid: 947e113398f058643a47464fff50cae1, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 947e113398f058643a47464fff50cae1, type: 3}
 --- !u!4 &365721952 stripped
@@ -2582,6 +2584,7 @@ MonoBehaviour:
   minIntensity: 0
   maxIntensity: 0.8
   smoothing: 20
+  dyingout: 1
 --- !u!1001 &388589438
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2807,6 +2810,7 @@ MonoBehaviour:
   minIntensity: 0
   maxIntensity: 0.4
   smoothing: 30
+  dyingout: 1
 --- !u!108 &403327319
 Light:
   m_ObjectHideFlags: 0
@@ -2893,6 +2897,7 @@ MonoBehaviour:
   minIntensity: 0
   maxIntensity: 0.4
   smoothing: 30
+  dyingout: 1
 --- !u!108 &408791182
 Light:
   m_ObjectHideFlags: 0
@@ -2979,6 +2984,7 @@ MonoBehaviour:
   minIntensity: 0
   maxIntensity: 0.4
   smoothing: 30
+  dyingout: 1
 --- !u!108 &411847242
 Light:
   m_ObjectHideFlags: 0
@@ -3916,6 +3922,7 @@ MonoBehaviour:
   minIntensity: 0
   maxIntensity: 0.4
   smoothing: 30
+  dyingout: 1
 --- !u!108 &595854615
 Light:
   m_ObjectHideFlags: 0
@@ -4209,6 +4216,7 @@ MonoBehaviour:
   minIntensity: 0
   maxIntensity: 0.2
   smoothing: 20
+  dyingout: 1
 --- !u!1001 &676971260
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7061,7 +7069,8 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Chapter Two: The Girl'
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 398732634, guid: 846fa82e67ee45d47b60c54c5746a264, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 846fa82e67ee45d47b60c54c5746a264, type: 3}
 --- !u!1001 &975028490
 PrefabInstance:
@@ -7630,6 +7639,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 145134, guid: 947e113398f058643a47464fff50cae1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 403928, guid: 947e113398f058643a47464fff50cae1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7766,10 +7779,6 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0.8726415
       objectReference: {fileID: 0}
-    - target: {fileID: 145134, guid: 947e113398f058643a47464fff50cae1, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 947e113398f058643a47464fff50cae1, type: 3}
 --- !u!4 &1066495561 stripped
@@ -7800,6 +7809,7 @@ MonoBehaviour:
   minIntensity: 0
   maxIntensity: 0.8
   smoothing: 20
+  dyingout: 1
 --- !u!108 &1066495564 stripped
 Light:
   m_CorrespondingSourceObject: {fileID: 10817028, guid: 947e113398f058643a47464fff50cae1,
@@ -10076,6 +10086,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 145134, guid: 947e113398f058643a47464fff50cae1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 403928, guid: 947e113398f058643a47464fff50cae1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -10212,10 +10226,6 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0.8726415
       objectReference: {fileID: 0}
-    - target: {fileID: 145134, guid: 947e113398f058643a47464fff50cae1, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 947e113398f058643a47464fff50cae1, type: 3}
 --- !u!4 &1387284662 stripped
@@ -10246,6 +10256,7 @@ MonoBehaviour:
   minIntensity: 0
   maxIntensity: 0.8
   smoothing: 20
+  dyingout: 1
 --- !u!1001 &1400610910
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11434,6 +11445,7 @@ MonoBehaviour:
   minIntensity: 0
   maxIntensity: 0.4
   smoothing: 30
+  dyingout: 1
 --- !u!108 &1629051420
 Light:
   m_ObjectHideFlags: 0
@@ -14654,6 +14666,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 145134, guid: 947e113398f058643a47464fff50cae1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 403928, guid: 947e113398f058643a47464fff50cae1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12
@@ -14790,10 +14806,6 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0.8726415
       objectReference: {fileID: 0}
-    - target: {fileID: 145134, guid: 947e113398f058643a47464fff50cae1, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 947e113398f058643a47464fff50cae1, type: 3}
 --- !u!4 &2118139611 stripped
@@ -14824,6 +14836,7 @@ MonoBehaviour:
   minIntensity: 0
   maxIntensity: 0.8
   smoothing: 20
+  dyingout: 1
 --- !u!1001 &2119665016
 PrefabInstance:
   m_ObjectHideFlags: 0

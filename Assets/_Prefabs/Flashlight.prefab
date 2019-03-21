@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 6666067198074791609}
   m_Layer: 0
   m_Name: spotlight
-  m_TagString: Untagged
+  m_TagString: difficulty
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

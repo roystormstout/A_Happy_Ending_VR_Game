@@ -9,6 +9,7 @@ public class DoorScript : Interactable
 
     // rewrite using condition if possible
     [SerializeField] bool isLocked = false;
+    [SerializeField] bool canBeUnlocked = false;
 
     [SerializeField] AudioClip DoorOpenClip;
     [SerializeField] AudioClip DoorCloseClip;
@@ -31,8 +32,6 @@ public class DoorScript : Interactable
     {
         base.Start();
 
-        Debug.Log("???");
-
         defaultRot = transform.eulerAngles;
         openRot = new Vector3(defaultRot.x, defaultRot.y + DoorOpenAngle, defaultRot.z);
         audioPlayer = GetComponent<AudioSource>();
@@ -40,8 +39,6 @@ public class DoorScript : Interactable
 
     public override void Interact(InteractionType interactionType)
     {
-        Debug.Log("interaction with doorrrrrr");
-
         if (isLocked)
             audioPlayer.PlayOneShot(DoorLockedClip);
 
@@ -58,7 +55,7 @@ public class DoorScript : Interactable
 
     // return whether successfully unlocked the door
     public bool UnlockDoor() {
-        if (isLocked == false)
+        if (isLocked == false || !canBeUnlocked)
             return false;
 
         Debug.Log(this.gameObject.name + " unlocked ");
