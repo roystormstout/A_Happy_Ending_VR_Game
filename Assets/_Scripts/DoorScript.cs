@@ -17,7 +17,7 @@ public class DoorScript : Interactable
     private bool AudioS;
 
     private float smooth = 2.0f;
-    private float DoorOpenAngle = 90.0f;
+    [SerializeField] float DoorOpenAngle = 90.0f;
 
     private Vector3 defaultRot;
     private Vector3 openRot;

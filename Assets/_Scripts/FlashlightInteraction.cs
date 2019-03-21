@@ -15,7 +15,7 @@ public class FlashlightInteraction : Collectable
     [SerializeField] AudioClip lightFlickerClip;
 
     private Transform forwardDirection;
-    private Condition raycastCondition;
+    private Condition raycastStart;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -25,39 +25,33 @@ public class FlashlightInteraction : Collectable
         lifeTime = 100f;
         isTurnedOn = true;
         isDying = false;
-        raycastCondition = new Condition("hallwaylightoff");
-        raycastCondition = ConditionManager.instance.AddCondition(raycastCondition);
+        raycastStart = new Condition("hallwaylightoff");
+        raycastStart = ConditionManager.instance.AddCondition(raycastStart);
         forwardDirection = transform.Find("ForwardDirection");
     }
 
     void Update()
     {
-        if (isDying) { Debug.Log("died"); }
+        if (isDying)
+            return;
 
-        //if (lifeTime <= 0.0f) {
-        //    StartCoroutine("DieOut");
-        //}
-        else
+        if (isTurnedOn)
         {
-            if (isTurnedOn)
+            lifeTime -= Time.deltaTime;
+
+            // raycast
+            int layerMask = 1 << 8 + 1 << 11;
+            layerMask = ~layerMask;
+
+            if (raycastStart.IsCompleted())
             {
-                lifeTime -= Time.deltaTime;
-
-                // raycast
-                int layerMask = 1 << 8 + 1 << 11;
-                layerMask = ~layerMask;
-
-                if (raycastCondition.IsCompleted())
+                RaycastHit hit;
+                // Does the ray intersect any objects excluding the player layer
+                if (Physics.Raycast(forwardDirection.position, forwardDirection.position - transform.position, out hit, Mathf.Infinity, layerMask))
                 {
-                    RaycastHit hit;
-                    // Does the ray intersect any objects excluding the player layer
-                    if (Physics.Raycast(forwardDirection.position, forwardDirection.position - transform.position, out hit, Mathf.Infinity, layerMask))
+                    if (hit.collider.gameObject.name == "HorrorDoll")
                     {
-                        if (hit.collider.gameObject.name == "Demon")
-                        {
-                            GameObject.FindGameObjectWithTag("Demon").GetComponent<Animator>().enabled = true;
-                            StartCoroutine("DieOut");
-                        }
+                        StartCoroutine("DieOut");
                     }
                 }
             }
@@ -97,7 +91,7 @@ public class FlashlightInteraction : Collectable
         isDying = true;
 
 
-        float timeRemaining = 1.5f;
+        float timeRemaining = 1f;
         while (timeRemaining > 0.0f)
         {
             spotLight.intensity -= 0.04f;
@@ -106,6 +100,17 @@ public class FlashlightInteraction : Collectable
         }
 
         audioPlayer.PlayOneShot(lightFlickerClip);
+
+        timeRemaining = 0.4f;
+        spotLight.enabled = false;
+        yield return new WaitForSeconds(0.4f);
+        if (timeRemaining < 1.0f && !spotLight.enabled)
+        {
+            GameObject demonDoll = GameObject.FindGameObjectWithTag("Demon");
+            if (demonDoll)
+                demonDoll.GetComponent<DemonDoll>().Disappear();
+        }
+
         // flicker for 1 second
         timeRemaining = 1.0f;
         while (timeRemaining > 0.0f)

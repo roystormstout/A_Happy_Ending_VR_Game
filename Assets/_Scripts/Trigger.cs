@@ -31,9 +31,6 @@ public class Trigger : MonoBehaviour
                 demon.SetActive(true);
                 Destroy(demon, 9f);
             }
-
-
-
         }
     }
 }

@@ -17,7 +17,7 @@ public class LightFlickerEffect : MonoBehaviour
     [Tooltip("How much to smooth out the randomness; lower values = sparks, higher = lantern")]
     [Range(1, 50)]
     public int smoothing = 5;
-
+    public bool dyingout = true;
     // Continuous average calculation via FIFO queue
     // Saves us iterating every time we update, we just change by the delta
     Queue<float> smoothQueue;
@@ -50,7 +50,7 @@ public class LightFlickerEffect : MonoBehaviour
 
     void Update()
     {
-        if (turnoffCondition.IsCompleted())
+        if (turnoffCondition.IsCompleted() && dyingout)
             gameObject.SetActive(false);
 
 

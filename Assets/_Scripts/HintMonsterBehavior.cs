@@ -5,10 +5,12 @@ using UnityEngine;
 public class HintMonsterBehavior : MonoBehaviour
 {
     public float speed = 1.4f;
-    // Start is called before the first frame update
+
+    private AudioSource audioPlayer;
+
     void Start()
     {
-        
+        audioPlayer = GetComponent<AudioSource>();        
     }
 
     // Update is called once per frame
@@ -16,4 +18,7 @@ public class HintMonsterBehavior : MonoBehaviour
     {
         transform.Translate(Vector3.forward * speed*Time.deltaTime);
     }
+
+
+
 }
