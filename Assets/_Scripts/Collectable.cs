@@ -49,6 +49,7 @@ public class Collectable : Interactable
 
         if (!isCollected)
         {
+            Debug.Log("collelct");
             OnFirstTimeCollect();
             isCollected = true;
             SetIsInteractable(false);

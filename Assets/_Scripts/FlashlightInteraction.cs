@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FlashlightInteraction : Collectable
 {
@@ -28,6 +29,13 @@ public class FlashlightInteraction : Collectable
         raycastStart = new Condition("hallwaylightoff");
         raycastStart = ConditionManager.instance.AddCondition(raycastStart);
         forwardDirection = transform.Find("ForwardDirection");
+
+
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            this.Interact(Interactable.InteractionType.RightHand);
+
+        }
     }
 
     void Update()

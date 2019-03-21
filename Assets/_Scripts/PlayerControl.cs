@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -67,7 +68,7 @@ public class PlayerControl : MonoBehaviour
             leftHandTransform = hands[1].transform;
             rightHandTransform = hands[0].transform;
         }
-        startingFlashlight.Interact(Interactable.InteractionType.RightHand);
+
     }
 
     // Update is called once per frame
