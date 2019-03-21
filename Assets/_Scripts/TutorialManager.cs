@@ -27,7 +27,6 @@ public class TutorialManager : MonoBehaviour
     {
         SetPlayerMovementEnabled(false);
 
-        PlayerUIControl.instance.SetTitleText("Fdskaljalskdgjsklagsdg");
         List<Condition> steps = new List<Condition>();
         steps.Add(new Condition("t_title"));
         steps.Add(new Condition("t_welcome"));
@@ -77,6 +76,9 @@ public class TutorialManager : MonoBehaviour
             SetPlayerMovementEnabled(true);
             moveIndicator.SetActive(true);
         }
+
+        if (tutorialRootCondition.GetCurrentProgressIndex() == 7)
+            PlayerUIControl.instance.Blackout();
 
     }
 
