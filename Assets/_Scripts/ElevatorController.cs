@@ -21,7 +21,7 @@ public class ElevatorController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animation>();
-        endofroadcondition = new Condition("endofroad");
+        endofroadcondition = new Condition("hallwaylightoff");
         endofroadcondition = ConditionManager.instance.AddCondition(endofroadcondition);
         endofroadFinished = false;
         endingFinished = false;

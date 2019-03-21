@@ -22,6 +22,7 @@ public class Trigger : MonoBehaviour
 
         if (other.gameObject.tag == "Player" && PlayerControl.instance.isHolding())
         {
+            Debug.Log("triggered " + eventName);
             triggered = true;
             ConditionManager.instance.UpdateConditions(eventName);
             if (optionalClip != null)

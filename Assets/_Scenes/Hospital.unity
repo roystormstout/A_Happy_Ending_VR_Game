@@ -338,7 +338,7 @@ Light:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 5
-  m_SpotAngle: 22
+  m_SpotAngle: 78
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -363,23 +363,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &24441300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 24441298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23dd04bc273045840ab3d96d550f2aaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  light: {fileID: 0}
-  minIntensity: 0
-  maxIntensity: 0.8
-  smoothing: 40
-  dyingout: 1
 --- !u!1 &30325561
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,7 +631,7 @@ Light:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 5
-  m_SpotAngle: 22
+  m_SpotAngle: 78
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -673,23 +656,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &51853776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 51853774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23dd04bc273045840ab3d96d550f2aaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  light: {fileID: 0}
-  minIntensity: 0
-  maxIntensity: 0.8
-  smoothing: 40
-  dyingout: 1
 --- !u!1001 &55706017
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1061,7 +1027,7 @@ PrefabInstance:
     - target: {fileID: 7200629265238892752, guid: 71759aa7ad92c7145888eb6dfe79cd91,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 7200629265238892752, guid: 71759aa7ad92c7145888eb6dfe79cd91,
         type: 3}
@@ -1071,7 +1037,7 @@ PrefabInstance:
     - target: {fileID: 7200629265238892752, guid: 71759aa7ad92c7145888eb6dfe79cd91,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 7200629265238892752, guid: 71759aa7ad92c7145888eb6dfe79cd91,
         type: 3}
@@ -1086,7 +1052,7 @@ PrefabInstance:
     - target: {fileID: 7200629265238892752, guid: 71759aa7ad92c7145888eb6dfe79cd91,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 7200629265238892752, guid: 71759aa7ad92c7145888eb6dfe79cd91,
         type: 3}
@@ -2122,15 +2088,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 862871672, guid: 846fa82e67ee45d47b60c54c5746a264, type: 3}
-      propertyPath: m_Text
-      value: 'Chapter Two: The Girl'
-      objectReference: {fileID: 0}
-    - target: {fileID: 862871672, guid: 846fa82e67ee45d47b60c54c5746a264, type: 3}
-      propertyPath: m_FontData.m_Font
-      value: 
-      objectReference: {fileID: 12800000, guid: 0d321ad12fe3d4391b506737af0972d1,
-        type: 3}
     - target: {fileID: 760259255, guid: 846fa82e67ee45d47b60c54c5746a264, type: 3}
       propertyPath: rightHandItem
       value: 
@@ -2147,10 +2104,23 @@ PrefabInstance:
       propertyPath: rightHandItemInReach
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 903340063, guid: 846fa82e67ee45d47b60c54c5746a264, type: 3}
-      propertyPath: Loop
-      value: 1
+    - target: {fileID: 997519501, guid: 846fa82e67ee45d47b60c54c5746a264, type: 3}
+      propertyPath: m_Radius
+      value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 280386648, guid: 846fa82e67ee45d47b60c54c5746a264, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 862871672, guid: 846fa82e67ee45d47b60c54c5746a264, type: 3}
+      propertyPath: m_Text
+      value: 'Chapter Two: The Girl'
+      objectReference: {fileID: 0}
+    - target: {fileID: 862871672, guid: 846fa82e67ee45d47b60c54c5746a264, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 0d321ad12fe3d4391b506737af0972d1,
+        type: 3}
     - target: {fileID: 9096840164439388282, guid: 846fa82e67ee45d47b60c54c5746a264,
         type: 3}
       propertyPath: m_Text
@@ -2158,9 +2128,9 @@ PrefabInstance:
 
 '
       objectReference: {fileID: 0}
-    - target: {fileID: 997519501, guid: 846fa82e67ee45d47b60c54c5746a264, type: 3}
-      propertyPath: m_Radius
-      value: 0.3
+    - target: {fileID: 903340063, guid: 846fa82e67ee45d47b60c54c5746a264, type: 3}
+      propertyPath: Loop
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 398732634, guid: 846fa82e67ee45d47b60c54c5746a264, type: 3}
@@ -5558,7 +5528,7 @@ Light:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 5
-  m_SpotAngle: 22
+  m_SpotAngle: 78
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -5583,23 +5553,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &928841316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 928841314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23dd04bc273045840ab3d96d550f2aaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  light: {fileID: 0}
-  minIntensity: 0
-  maxIntensity: 0.8
-  smoothing: 40
-  dyingout: 1
 --- !u!1001 &953746616
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5901,12 +5854,12 @@ PrefabInstance:
     - target: {fileID: 2608840268292580848, guid: 71759aa7ad92c7145888eb6dfe79cd91,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Demon
       objectReference: {fileID: 0}
     - target: {fileID: 7200629265238892752, guid: 71759aa7ad92c7145888eb6dfe79cd91,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.31
+      value: -12.601
       objectReference: {fileID: 0}
     - target: {fileID: 7200629265238892752, guid: 71759aa7ad92c7145888eb6dfe79cd91,
         type: 3}
@@ -5978,6 +5931,18 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1932067861, guid: 71759aa7ad92c7145888eb6dfe79cd91, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: e615d51ca0a5e4944ab2405405a498d4, type: 3}
+    - target: {fileID: 1932067861, guid: 71759aa7ad92c7145888eb6dfe79cd91, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1932067862, guid: 71759aa7ad92c7145888eb6dfe79cd91, type: 3}
+      propertyPath: m_Radius
+      value: 3.88
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71759aa7ad92c7145888eb6dfe79cd91, type: 3}
 --- !u!1 &1000162010 stripped
@@ -5999,7 +5964,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000162010}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 065027bc324b6ed488d9ff28366cac34, type: 3}
   m_Name: 
@@ -6833,7 +6798,7 @@ Light:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 5
-  m_SpotAngle: 22
+  m_SpotAngle: 78
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -6858,23 +6823,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &1137129801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1137129799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23dd04bc273045840ab3d96d550f2aaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  light: {fileID: 0}
-  minIntensity: 0
-  maxIntensity: 0.8
-  smoothing: 40
-  dyingout: 1
 --- !u!4 &1144430048 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 61f3d7cc546baf14a98f26525765a434,
@@ -9083,7 +9031,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b8ddc95b8391b645b02c184da781009, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventName: endofroad
+  eventName: hallwaylightoff
   optionalClip: {fileID: 0}
   demon: {fileID: 1000162010}
 --- !u!65 &1588109364

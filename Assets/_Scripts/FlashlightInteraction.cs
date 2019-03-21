@@ -57,9 +57,13 @@ public class FlashlightInteraction : Collectable
                 // Does the ray intersect any objects excluding the player layer
                 if (Physics.Raycast(forwardDirection.position, forwardDirection.position - transform.position, out hit, Mathf.Infinity, layerMask))
                 {
+                    Debug.Log("hitting " + hit.collider.gameObject.name);
                     if (hit.collider.gameObject.tag == "Demon")
                     {
-                        StartCoroutine("DieOut");
+                        if (SceneManager.GetActiveScene().buildIndex == 2)
+                            StartCoroutine("Flicker");
+                        else
+                            StartCoroutine("DieOut");
                     }
                 }
             }
@@ -134,5 +138,45 @@ public class FlashlightInteraction : Collectable
         spotLight.enabled = false;
         spotLight.intensity = 0.0f;
         lifeTime = 0.0f;
+    }
+
+
+    IEnumerator Flicker() {
+        isDying = true;
+
+
+        float timeRemaining = 1f;
+        while (timeRemaining > 0.0f)
+        {
+            spotLight.intensity -= 0.04f;
+            timeRemaining -= 0.1f;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        audioPlayer.PlayOneShot(lightFlickerClip);
+
+        timeRemaining = 1.0f;
+        spotLight.enabled = false;
+        yield return new WaitForSeconds(0.4f);
+
+        GameObject demonDoll = GameObject.FindGameObjectWithTag("Demon");
+        if (demonDoll)
+            demonDoll.transform.position = demonDoll.transform.position + demonDoll.transform.forward * 10;
+
+        // flicker for 1 second
+        timeRemaining = 1.5f;
+        while (timeRemaining > 0.0f)
+        {
+            spotLight.enabled = !spotLight.enabled;
+            timeRemaining -= 0.12f;
+            yield return new WaitForSeconds(0.12f);
+        }
+
+        audioPlayer.Stop();
+
+        isDying = true;
+        isTurnedOn = false;
+        spotLight.enabled = false;
+        spotLight.intensity = 1.0f;
     }
 }

@@ -33,7 +33,10 @@ public class ConditionManager : MonoBehaviour
 
     public Condition GetConditionWithName(string uniqueTriggerName)
     {
-        return mUniqueValueMap[uniqueTriggerName];
+        if (mUniqueValueMap.ContainsKey(uniqueTriggerName))
+            return mUniqueValueMap[uniqueTriggerName];
+        else
+            return null;
     }
 
     private Condition AddConditionWithParent(Condition newCondition, Condition parentCondition, int position)

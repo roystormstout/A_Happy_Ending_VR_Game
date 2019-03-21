@@ -64,7 +64,7 @@ RectTransform:
   m_GameObject: {fileID: 280386646}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -732}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 1152799452}
   m_RootOrder: 2
@@ -538,6 +538,7 @@ MonoBehaviour:
   rightHandItem: {fileID: 0}
   footStepClip: {fileID: 8300000, guid: 6267ee9bd45229f4c9c269900188de49, type: 3}
   heartbeatClip: {fileID: 8300000, guid: e615d51ca0a5e4944ab2405405a498d4, type: 3}
+  startingFlashlight: {fileID: 0}
 --- !u!136 &997519501
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1037,6 +1038,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   titleText: {fileID: 862871672}
   blackoutImage: {fileID: 280386648}
+  mainscreenPanel: {fileID: 0}
+  difficulty: {fileID: 0}
+  quit: {fileID: 0}
+  easy: {fileID: 0}
+  hard: {fileID: 0}
+  isMenu: 0
+  selected: {fileID: 0}
 --- !u!1 &1480058116
 GameObject:
   m_ObjectHideFlags: 0
