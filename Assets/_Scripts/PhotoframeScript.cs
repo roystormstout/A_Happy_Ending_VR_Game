@@ -5,22 +5,21 @@ using UnityEngine;
 public class PhotoframeScript : MonoBehaviour
 {
     [SerializeField] Material ghostgirlMat;
-    Transform plane;
+    [SerializeField] string eventName = "changePhoto";
+    private Transform plane;
+    private Condition triggerCondition;
 
     // Start is called before the first frame update
     void Start()
     {
         plane = transform.GetChild(0);
+        triggerCondition = ConditionManager.instance.AddCondition(new Condition(eventName));
     }
 
     // Update is called once per frame
     void Update()
     {
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
+        if (triggerCondition.IsCompleted())
         {
             StartCoroutine("ChangePhoto");
         }
@@ -31,5 +30,9 @@ public class PhotoframeScript : MonoBehaviour
         GetComponent<AudioSource>().Play();
         yield return new WaitForSeconds(0.2f);
         plane.GetComponent<MeshRenderer>().material = ghostgirlMat;
+
+        yield return new WaitForSeconds(2.5f);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>().PlayHeartBeat();
+        this.enabled = false;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DoorScript : Interactable
 {
@@ -30,6 +31,8 @@ public class DoorScript : Interactable
     {
         base.Start();
 
+        Debug.Log("???");
+
         defaultRot = transform.eulerAngles;
         openRot = new Vector3(defaultRot.x, defaultRot.y + DoorOpenAngle, defaultRot.z);
         audioPlayer = GetComponent<AudioSource>();
@@ -37,11 +40,18 @@ public class DoorScript : Interactable
 
     public override void Interact(InteractionType interactionType)
     {
+        Debug.Log("interaction with doorrrrrr");
+
         if (isLocked)
             audioPlayer.PlayOneShot(DoorLockedClip);
 
         if (isRotating || isLocked)
             return;
+
+        // if tutorial
+        Debug.Log(SceneManager.GetActiveScene().buildIndex);
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+            ConditionManager.instance.UpdateConditions("t_door_interaction");
 
         StartCoroutine("DoorOperation");
     }

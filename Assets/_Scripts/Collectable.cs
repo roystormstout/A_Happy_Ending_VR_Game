@@ -53,7 +53,7 @@ public class Collectable : Interactable
             isCollected = true;
             SetIsInteractable(false);
 
-            if (!audioPlayer)
+            if (audioPlayer)
                 audioPlayer.PlayOneShot(collectClip);
         }
         else

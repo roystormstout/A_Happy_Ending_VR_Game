@@ -8,6 +8,6 @@ public class DemonDoll : MonoBehaviour
     public void Disappear()
     {
         GetComponent<AudioSource>().Play();
-        GetComponent<MeshRenderer>().enabled = false;
+        transform.position = new Vector3(-5.0f, 0.0f, 0.0f);
     }
 }

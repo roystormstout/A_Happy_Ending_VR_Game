@@ -30,6 +30,8 @@ public class PlayerControl : MonoBehaviour
 
     // variables used to determine foot steps
     [SerializeField] AudioClip footStepClip;
+    [SerializeField] AudioClip heartbeatClip;
+
     private float walkGestureDirection = 0.0f;
     private float lastRefreshedPosition = 0.0f;
 
@@ -195,5 +197,10 @@ public class PlayerControl : MonoBehaviour
     public bool isHolding()
     {
         return leftHandItem != null || rightHandItem != null;
+    }
+
+    public void PlayHeartBeat()
+    {
+        audioPlayer.PlayOneShot(heartbeatClip);
     }
 }

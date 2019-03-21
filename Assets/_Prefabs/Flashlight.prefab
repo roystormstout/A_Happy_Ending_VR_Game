@@ -239,7 +239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHandAnchor: {fileID: 415500494}
   rightHandAnchor: {fileID: 736585642}
-  collectClip: {fileID: 0}
+  collectClip: {fileID: 8300000, guid: 6515050e7bacb6a46a9487f527e59918, type: 3}
   spotLight: {fileID: 6666067198074791609}
   flashlightSwitchClip: {fileID: 8300000, guid: 34a5d32f719f755408f730dd7924ad99,
     type: 3}

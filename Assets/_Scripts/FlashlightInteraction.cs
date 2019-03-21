@@ -49,7 +49,7 @@ public class FlashlightInteraction : Collectable
                 // Does the ray intersect any objects excluding the player layer
                 if (Physics.Raycast(forwardDirection.position, forwardDirection.position - transform.position, out hit, Mathf.Infinity, layerMask))
                 {
-                    if (hit.collider.gameObject.name == "HorrorDoll")
+                    if (hit.collider.gameObject.tag == "Demon")
                     {
                         StartCoroutine("DieOut");
                     }
@@ -91,7 +91,7 @@ public class FlashlightInteraction : Collectable
         isDying = true;
 
 
-        float timeRemaining = 1f;
+        float timeRemaining = 1.4f;
         while (timeRemaining > 0.0f)
         {
             spotLight.intensity -= 0.04f;
