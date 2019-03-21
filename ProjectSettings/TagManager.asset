@@ -9,6 +9,7 @@ TagManager:
   - moveIndicator
   - Demon
   - flashlight
+  - difficulty
   layers:
   - Default
   - TransparentFX

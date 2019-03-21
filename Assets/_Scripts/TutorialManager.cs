@@ -44,12 +44,12 @@ public class TutorialManager : MonoBehaviour
         tutorialHelperText = new List<string>();
         tutorialHelperText.Add("");
         tutorialHelperText.Add("Welcome to the happiness resort!Let's get started with some basic operations.");
-        tutorialHelperText.Add("Move by press down the right hand hand trigger and simulating running with your arms.Look at where you want to go and wave your arms.");
+        tutorialHelperText.Add("Move by press down the right hand hand trigger and simulating running with your arms. Look at where you want to go and wave your arms.");
         tutorialHelperText.Add("Go to the highlighted location.");
         tutorialHelperText.Add("Move either hand close to the walkie on the table and press index trigger to pick it up.");
         tutorialHelperText.Add("Press the holding hand thumb stick to interact with the walkie");
         tutorialHelperText.Add("Move either hand close to a door and press index trigger to open or close it.");
-        tutorialHelperText.Add("Now...Enjoy the rest of your trip.");
+        tutorialHelperText.Add("Now... Enjoy ... the hatred from Sherry.");
 
     }
 
@@ -64,13 +64,13 @@ public class TutorialManager : MonoBehaviour
             ConditionManager.instance.UpdateConditions("t_title");
         }
 
-        if (tutorialRootCondition.GetCurrentProgressIndex() == 1 && Time.timeSinceLevelLoad > 11.0f)
+        if (tutorialRootCondition.GetCurrentProgressIndex() == 1 && Time.timeSinceLevelLoad > 15.0f)
         {
             ConditionManager.instance.UpdateConditions("t_welcome");
         }
         
         // move instruction trigger
-        if (tutorialRootCondition.GetCurrentProgressIndex() == 2 && Time.timeSinceLevelLoad > 15.0f)
+        if (tutorialRootCondition.GetCurrentProgressIndex() == 2 && Time.timeSinceLevelLoad > 23.0f)
         {
             ConditionManager.instance.UpdateConditions("t_movement_instruction");
             SetPlayerMovementEnabled(true);

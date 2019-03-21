@@ -5,9 +5,10 @@ using UnityEngine;
 public class PhotoframeScript : MonoBehaviour
 {
     [SerializeField] Material ghostgirlMat;
-    [SerializeField] string eventName = "changePhoto";
+    [SerializeField] string eventName = "photoChange";
     private Transform plane;
     private Condition triggerCondition;
+    private bool triggered = false;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +20,7 @@ public class PhotoframeScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (triggerCondition.IsCompleted())
+        if (triggerCondition.IsCompleted() && !triggered)
         {
             StartCoroutine("ChangePhoto");
         }
@@ -27,6 +28,8 @@ public class PhotoframeScript : MonoBehaviour
 
     IEnumerator ChangePhoto()
     {
+        triggered = true;
+
         GetComponent<AudioSource>().Play();
         yield return new WaitForSeconds(0.2f);
         plane.GetComponent<MeshRenderer>().material = ghostgirlMat;

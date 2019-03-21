@@ -11,8 +11,18 @@ public class ClipboardScript : Collectable
     {
         base.Use(target);
 
-        ConditionManager.instance.UpdateConditions(eventName);
-        
         Destroy(this.gameObject);
+
+    }
+
+    protected override void OnFirstTimeCollect()
+    {
+        base.OnFirstTimeCollect();
+
+        if (isEventTrigger)
+        {
+            ConditionManager.instance.UpdateConditions(eventName);
+            Debug.Log("triggered");
+        }
     }
 }

@@ -82,9 +82,8 @@ public class PlayerControl : MonoBehaviour
         {
             if (leftHandItemInReach != null)
             {
-                if (leftHandItemInReach is Collectable && leftHandItem != null)
-                    Destroy(leftHandItem.gameObject);
-                leftHandItemInReach.Interact(Interactable.InteractionType.LeftHand);
+                if (!(leftHandItemInReach is Collectable) || leftHandItem == null)
+                    leftHandItemInReach.Interact(Interactable.InteractionType.LeftHand);
             }
         }
 
@@ -92,9 +91,8 @@ public class PlayerControl : MonoBehaviour
         {
             if (rightHandItemInReach != null)
             {
-                if (rightHandItemInReach is Collectable && rightHandItem != null)
-                    Destroy(rightHandItem.gameObject);
-                rightHandItemInReach.Interact(Interactable.InteractionType.RightHand);
+                if (!(rightHandItemInReach is Collectable) || rightHandItem == null)
+                    rightHandItemInReach.Interact(Interactable.InteractionType.RightHand);
             }
         }
 
