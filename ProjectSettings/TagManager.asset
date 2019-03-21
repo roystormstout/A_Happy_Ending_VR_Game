@@ -8,6 +8,7 @@ TagManager:
   - hands
   - moveIndicator
   - Demon
+  - flashlight
   layers:
   - Default
   - TransparentFX

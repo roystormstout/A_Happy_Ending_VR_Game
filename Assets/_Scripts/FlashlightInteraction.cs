@@ -22,41 +22,42 @@ public class FlashlightInteraction : Collectable
     {
         base.Start();
 
-        raycastCondition = new Condition("hallwaylightoff");
-        raycastCondition = ConditionManager.instance.AddCondition(raycastCondition);
-
         lifeTime = 100f;
         isTurnedOn = true;
         isDying = false;
-
+        raycastCondition = new Condition("hallwaylightoff");
+        raycastCondition = ConditionManager.instance.AddCondition(raycastCondition);
         forwardDirection = transform.Find("ForwardDirection");
     }
 
     void Update()
     {
-        if (isDying) return;
+        if (isDying) { Debug.Log("died"); }
 
-        if (lifeTime <= 0.0f) {
-            StartCoroutine("DieOut");
-        }
-
-        if (isTurnedOn)
+        //if (lifeTime <= 0.0f) {
+        //    StartCoroutine("DieOut");
+        //}
+        else
         {
-            lifeTime -= Time.deltaTime;
-
-            // raycast
-            int layerMask = 1 << 8 + 1 << 11;
-            layerMask = ~layerMask;
-
-            if (raycastCondition.IsCompleted())
+            if (isTurnedOn)
             {
-                RaycastHit hit;
-                // Does the ray intersect any objects excluding the player layer
-                if (Physics.Raycast(forwardDirection.position, forwardDirection.position - transform.position, out hit, Mathf.Infinity, layerMask))
+                lifeTime -= Time.deltaTime;
+
+                // raycast
+                int layerMask = 1 << 8 + 1 << 11;
+                layerMask = ~layerMask;
+
+                if (raycastCondition.IsCompleted())
                 {
-                    if (hit.collider.gameObject.name == "Demon") {
-                        GameObject.FindGameObjectWithTag("Demon").GetComponent<Animator>().enabled = true;
-                        StartCoroutine("DieOut");
+                    RaycastHit hit;
+                    // Does the ray intersect any objects excluding the player layer
+                    if (Physics.Raycast(forwardDirection.position, forwardDirection.position - transform.position, out hit, Mathf.Infinity, layerMask))
+                    {
+                        if (hit.collider.gameObject.name == "Demon")
+                        {
+                            GameObject.FindGameObjectWithTag("Demon").GetComponent<Animator>().enabled = true;
+                            StartCoroutine("DieOut");
+                        }
                     }
                 }
             }
@@ -88,7 +89,7 @@ public class FlashlightInteraction : Collectable
     }
 
     protected override void OnFirstTimeCollect() {
-        StartCoroutine("DieOut", 2f);
+        //StartCoroutine("DieOut", 2f);
     }
 
     IEnumerator DieOut() {
