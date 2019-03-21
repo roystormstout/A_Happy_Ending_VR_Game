@@ -35,22 +35,29 @@ public class ElevatorController : MonoBehaviour
 
         if (endofroadcondition.IsCompleted()&&!endofroadFinished)
         {
-            FirstCondtionMet();
+            StartCoroutine("FirstCondtionMet");
+            endofroadFinished = true;
+        }
 
+        if (insideelevatorcondition.IsCompleted()&& !endingFinished)
+        {
+            StartCoroutine("SecondCondtionMet");
+            endingFinished = true;
         }
     }
 
     IEnumerator FirstCondtionMet()
     {
-        trickwall.SetActive(false);
+        yield return new WaitForSeconds(8f);
+        animator.Play("OpenDoors");
         sourceplayer.clip = arriveClip;
         sourceplayer.Play();
+        trickwall.SetActive(false);
         yield return new WaitForSeconds(sourceplayer.clip.length);
-        animator.Play("OpenDoors");
         sourceplayer.clip = openClip;
         sourceplayer.Play();
         yield return new WaitForSeconds(sourceplayer.clip.length);
-        endofroadFinished = true;
+       
     }
 
 
@@ -63,7 +70,11 @@ public class ElevatorController : MonoBehaviour
         sourceplayer.clip = movingClip;
         sourceplayer.Play();
         yield return new WaitForSeconds(5f);
-        sourceplayer.PlayOneShot(stopClip);
-        endofroadFinished = true;
+        sourceplayer.clip = stopClip;
+        sourceplayer.Play();
+        yield return new WaitForSeconds(sourceplayer.clip.length);
+        PlayerUIControl.instance.Blackout();
+        sourceplayer.clip = mockingbirdClip;
+        sourceplayer.Play();
     }
 }

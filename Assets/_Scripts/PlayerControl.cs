@@ -31,7 +31,7 @@ public class PlayerControl : MonoBehaviour
     // variables used to determine foot steps
     [SerializeField] AudioClip footStepClip;
     [SerializeField] AudioClip heartbeatClip;
-
+    [SerializeField] Interactable startingFlashlight;
     private float walkGestureDirection = 0.0f;
     private float lastRefreshedPosition = 0.0f;
 
@@ -67,6 +67,7 @@ public class PlayerControl : MonoBehaviour
             leftHandTransform = hands[1].transform;
             rightHandTransform = hands[0].transform;
         }
+        startingFlashlight.Interact(Interactable.InteractionType.RightHand);
     }
 
     // Update is called once per frame
