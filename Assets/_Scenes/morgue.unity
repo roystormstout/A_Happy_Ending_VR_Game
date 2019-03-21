@@ -2134,6 +2134,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2790150462640359249, guid: 7bc330fea959f1d448657ccf9ab73f54,
+        type: 3}
+      propertyPath: m_Text
+      value: "Dec 13th\t       Rainy\n  There seems to be some intermittent power
+        shortage in the lab. \n  I have to carry a flashlight all the time. The battery
+        is dying, I've got some extra in my office but that's it.\n\n\n"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bc330fea959f1d448657ccf9ab73f54, type: 3}
 --- !u!1001 &412377725
@@ -2817,6 +2824,13 @@ PrefabInstance:
         type: 3}
       propertyPath: isEventTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2790150462640359249, guid: 7bc330fea959f1d448657ccf9ab73f54,
+        type: 3}
+      propertyPath: m_Text
+      value: "Dec 16th\t     Cloudy\r\n  she tries to escape today\u2026\r\n  I have
+        to hide the exit keys somewhere she won\u2019t be able to find\u2026\r\n  she
+        seems to be afraid of those corpse drawers\u2026\r\n"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bc330fea959f1d448657ccf9ab73f54, type: 3}

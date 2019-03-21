@@ -96,7 +96,7 @@ public class PlayerUIControl : MonoBehaviour
     IEnumerator CloseScreen()
     {
         isChanging = true;
-        float totalTime = 2.0f;
+        float totalTime = 4.0f;
         float timeRemaining = totalTime;
 
         while (timeRemaining > 0.0f)
